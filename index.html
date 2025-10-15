@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Student Finance Tracker</title>
+  <link rel="stylesheet" href="styles/style.css" />
+</head>
+<body>
+  <header class="site-header" role="banner">
+    <div class="header-inner">
+      <h1 id="h1" class="app-title">Your Finance Tracker.<br> "Use but never forget to save!"</h1>
+      <nav aria-label="Primary" class="top-nav">
+        <button data-nav="dashboard">Stats</button>
+        <button data-nav="records">Records</button>
+        <button data-nav="add">Add</button>
+        <button data-nav="settings">Settings</button>
+        <button data-nav="about">About</button>
+      </nav>
+    </div>
+  </header>
+  <h1 id="head1">======= Welcome to your financial tracker! ======</h1>
+  <h2 id="head2">--- Use buttons above to navigate. ----</h2>
+
+  <main id="main" tabindex="-1" role="main">
+    
+    <section id="dashboard" class="screen" aria-labelledby="h-dashboard" hidden>
+      <h2 id="h-dashboard">Dashboard</h2>
+
+      <div id="stats-wrapper">
+        <div class="stat-card">
+          <p id="stat-total-records">Total Records: 0</p>
+        </div>
+        <div class="stat-card">
+          <p id="stat-total-amount">Total Amount: $0</p>
+        </div>
+        <div class="stat-card">
+          <p id="stat-top-category">Top Category: —</p>
+        </div>
+      </div>
+
+      <h3>Last 7 Days Trend</h3>
+      <div id="stat-chart"></div>
+    </section>
+
+    <!--section id="dashboard" class="screen" aria-labelledby="h-dashboard">
+      <h2 id="h-dashboard">Dashboard</h2>
+      <div id="stats" aria-live="polite">
+            <div class="card" id="stat-total-records">Total Records: 0</div>
+            <div class="card" id="stat-total-amount">Total Amount: $0</div>
+            <div class="card" id="stat-top-category">Top Category: N/A</div>
+            <div class="card" id="stat-chart-title">Last 7 Days</div>
+            <div id="stat-chart"></div>
+      </div>
+    </section-->
+
+    <section id="records" class="screen" aria-labelledby="h-records" hidden>
+        <h2 id="h-records">Records</h2>
+
+        <!-- Search Bar -->
+        <div id="records-controls">
+            <input
+            id="search-input"
+            type="text"
+            placeholder="Search (supports regex)"
+            aria-label="Search transactions"
+            />
+            <label style="font-size: 0.9rem;">
+            <input type="checkbox" id="case-insensitive" checked />
+            Case-insensitive
+            </label>
+        </div>
+
+        <!-- Sort buttons -->
+        <div id="sort-controls">
+            <button class="sort" data-sort="date">Sort by Date</button>
+            <button class="sort" data-sort="amount">Sort by Amount</button>
+            <button class="sort" data-sort="category">Sort by Category</button>
+            <button class="sort" data-sort="description">Sort by Description</button>
+        </div>
+
+        <!-- Table or card list -->
+        <div id="records-list" role="table" aria-live="polite"></div>
+
+        <!-- Floating Add Button (optional for mobile view) -->
+        <!--button id="add-record-btn" aria-label="Add new record">+</button-->
+    </section>
+
+
+    <!--section id="records" class="screen" aria-labelledby="h-records" hidden>
+      <h2 id="h-records">Records</h2>
+      <div id="records-controls"></div>
+      <div id="records-list" role="table" aria-live="polite"></div>
+    </section-->
+
+    <section id="add" class="screen" aria-labelledby="h-add" hidden>
+      <h2 id="h-add">Add Transaction</h2>
+      <form id="txn-form" novalidate>
+        <label class="label-add" for="desc">Description</label>
+        <input id="desc" name="description" type="text" autocomplete="off" />
+        <small class="error-msg" id="err-desc"></small>
+
+        <label class="label-add" for="amount">Amount</label>
+        <input id="amount" name="amount" inputmode="decimal" type="text" />
+        <small class="error-msg" id="err-amount"></small>
+
+        <label class="label-add" for="category">Category</label>
+        <input id="category" name="category" type="text" placeholder="Food, Books, Transport, Entertainment, Fees, Other"/>
+        <small class="error-msg" id="err-category"></small>
+
+        <label class="label-add" for="date">Date</label>
+        <input id="date" name="date" type="date" />
+        <small class="error-msg" id="err-date"></small>
+
+        <div class="form-actions">
+          <button class= "sub" type="submit">Save</button>
+          <button class="canc"  type="button" id="cancel">Cancel</button>
+        </div>
+        <div id="form-status" role="status" aria-live="polite"></div>
+      </form>
+    </section>
+
+    
+
+
+    <!--section id="settings" class="screen" aria-labelledby="h-settings" hidden>
+      <h2 id="h-settings">Settings</h2>
+      <div id="settings-area"></div>
+    </section-->
+
+    <section id="settings" class="screen" aria-labelledby="h-settings" hidden>
+      <h2 id="h-settings">Settings</h2>
+
+      <h3>Currency Settings</h3>
+      <form id="currency-form">
+        <label class="label">
+          Base Currency:
+          <input type="text" id="base-currency" value="USD" required />
+        </label>
+
+        <label class="label">
+          Other Currency 1:
+          <input type="text" id="currency1" value="EUR" required />
+        </label>
+
+        <label class="label">
+          Rate (Base → Currency 1):
+          <input type="number" step="0.01" id="rate1" value="1.1" required />
+        </label>
+
+        <label class="label">
+          Other Currency 2:
+          <input type="text" id="currency2" value="GBP" required />
+        </label>
+
+        <label class="label">
+          Rate (Base → Currency 2):
+          <input type="number" step="0.01" id="rate2" value="0.85" required />
+        </label>
+
+        <button class="sub"  type="submit">Save</button>
+      </form>
+
+      <hr />
+
+      <h3>Import / Export Data</h3>
+      <div>
+        <button id="export-json">Export JSON</button>
+        <input type="file" id="import-json" accept=".json" />
+        <p id="import-status" role="status" aria-live="polite"></p>
+      </div>
+    </section>
+
+
+    <section id="about" class="screen" aria-labelledby="h-about" hidden>
+      <h2 id="h-about">About</h2>
+      <p>This app helps you track daily expenses. Developer: Natinael Boda</p>
+      <p>GitHub: <a href="#" id="github-link">github.com/yourname</a></p>
+    </section>
+  </main>
+
+  <footer class="footer" role="contentinfo">Year of development: <span id="year"></span></footer>
+
+  <script type="module" src="scripts/main.js" defer></script>
+</body>
+</html>
