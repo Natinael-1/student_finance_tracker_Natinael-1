@@ -13,6 +13,12 @@ function highlightMatch(text) {
   if (!currentSearchRegex) return text;
   return text.replace(currentSearchRegex, match => `<mark>${match}</mark>`);
 }
+//variables declared for persitent sorting
+
+let currentSortKey = null;     
+let currentSortDirection = 'asc';  // or 'desc'
+
+
 
 
 
@@ -35,9 +41,19 @@ document.querySelectorAll('.top-nav button').forEach(btn => {
     document.getElementById('main').focus();
 
     // ✅ When switching to Records, refresh the list
+    
     if (target === 'records') {
-      renderRecords(getAll());
+      let data = getAll();
+    if (currentSortKey) {
+      data = sortRecords(data, currentSortKey, currentSortDirection);
     }
+
+    renderRecords(data);
+  }
+
+    /*if (target === 'records') {
+      renderRecords(getAll());
+    }*/
   });
 });
 // Track sort order for each field
@@ -57,9 +73,14 @@ document.getElementById('sort-controls').addEventListener('click', (e) => {
   // Toggle direction
   const direction = sortState[field] === 'asc' ? 'desc' : 'asc';
   sortState[field] = direction;
+  // Save sort so it persists
+currentSortKey = field;
+currentSortDirection = direction;
 
-  const sorted = sortRecords(allRecs, field, direction);
-  renderRecords(sorted);
+const sorted = sortRecords(allRecs, field, direction);
+renderRecords(sorted);
+  /*const sorted = sortRecords(allRecs, field, direction);
+  renderRecords(sorted);*/
 });
 
 
