@@ -99,4 +99,8 @@ https://www.figma.com/design/1cmjIR8Tqn2GyxU9wIQ9st/Finance-tracker?node-id=31-2
 2.Desktop view   
 https://www.figma.com/design/1cmjIR8Tqn2GyxU9wIQ9st/Finance-tracker?node-id=63-953&t=GC78fwDVLdUU3The-0
 3 Tablet view  
-https://www.figma.com/design/1cmjIR8Tqn2GyxU9wIQ9st/Finance-tracker?node-id=43-278&t=GC78fwDVLdUU3The-0
+https://www.figma.com/design/1cmjIR8Tqn2GyxU9wIQ9st/Finance-tracker?node-id=43-278&t=GC78fwDVLdUU3The-0  
+
+Demo video link in Youtube  
+https://youtu.be/a_lQ8_e8MIA?si=fIaw9hx4_jgfoNYl
+
