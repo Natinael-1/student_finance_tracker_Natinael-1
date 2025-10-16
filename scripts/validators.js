@@ -1,11 +1,11 @@
-// scripts/validators.js
+
 export const re = {
-  desc: /^\S(?:.*\S)?$/, // no leading/trailing spaces
-  amount: /^(0|[1-9]\d*)(\.\d{1,2})?$/, // money
+  desc: /^\S(?:.*\S)?$/, // to prevent spaces from both side
+  amount: /^(0|[1-9]\d*)(\.\d{1,2})?$/, //validates amount section
   date: /^\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01])$/, // YYYY-MM-DD
   category: /^[A-Za-z]+(?:[ -][A-Za-z]+)*$/,
 
-  // advanced: duplicate consecutive word (back-reference)
+  // This one uses a concept lookahead and lookbehind to validate duplicate words
   dupWord: /\b(\w+)\s+\1\b/i
 };
 
@@ -21,23 +21,23 @@ export function validate(record) {
   if (!re.category.test(record.category || '')) errors.category = 'Invalid category';
   return errors;
 }
-//These regex checkers are for validating user input
-// No leading/trailing spaces
+
+// The regex here is now stored as a variable. Helps us for reusabilirry
 export const regexDescription = /^\S(?:.*\S)?$/;
 
-// Amount: integers or decimals up to 2 digits
+// allowing decimal value
 export const regexAmount = /^(0|[1-9]\d*)(\.\d{1,2})?$/;
 
-// Date: YYYY-MM-DD
+// Date format: YYYY-MM-DD
 export const regexDate = /^\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01])$/;
 
-// Category: letters, spaces, hyphens only
+// for category
 export const regexCategory = /^[A-Za-z]+(?:[ -][A-Za-z]+)*$/;
 
-// Advanced regex: duplicate word detection
+// This one is for detecting duplicate words
 export const regexDuplicateWord = /\b(\w+)\s+\1\b/;
 
-// Utility
+
 export function validateField(value, pattern) {
   return pattern.test(value);
 }

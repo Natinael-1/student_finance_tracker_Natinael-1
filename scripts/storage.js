@@ -1,6 +1,6 @@
-// scripts/storage.js
-const KEY = 'ft:data:v1';
 
+const KEY = 'ft:data:v1';
+//This loadData() function handles loading data from local storage
 export function loadData() {
   try {
     return JSON.parse(localStorage.getItem(KEY) || 'null') || [];
@@ -8,7 +8,7 @@ export function loadData() {
     return [];
   }
 }
-
+//As its name indicates, this function saves data to local storage
 export function saveData(arr) {
   try {
     localStorage.setItem(KEY, JSON.stringify(arr));
@@ -17,7 +17,7 @@ export function saveData(arr) {
     return false;
   }
 }
-
+//This one removes saved data from local storage
 export function clearData() {
   localStorage.removeItem(KEY);
 }

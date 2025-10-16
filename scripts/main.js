@@ -1,37 +1,30 @@
-// scripts/main.js
+
+//These are the functions imported from external modules such as validators.js, search.js..etc
 import { addRecord, getAll, deleteRecord, updateRecord, replaceAll } from './state.js';
 import { cleanDescription, validate } from './validators.js';
 import { compileRegex } from './search.js';
 import { loadSettings, saveSettings } from './storage.js';
-
-
 import {regexDescription, regexAmount, regexDate, regexCategory, regexDuplicateWord,validateField} from './validators.js';
-// ✅ Global regex storage for highlighting
-let currentSearchRegex = null;
 
+//These is the function to highlight the matchs while searching
+let currentSearchRegex = null;
 function highlightMatch(text) {
   if (!currentSearchRegex) return text;
   return text.replace(currentSearchRegex, match => `<mark>${match}</mark>`);
 }
-//variables declared for persitent sorting
 
+//These are the variables to keep sorting in place(persitance)
 let currentSortKey = null;     
 let currentSortDirection = 'asc';  // or 'desc'
 
-
-
-
-
 let editingId = null;
-
-
 document.getElementById('year').textContent = new Date().getFullYear();
 
-// Load current records from state
+// This loads record from state.js
 const data = getAll();
 renderDashboard(data);
 
-// simple nav handler
+// This block of code handles navigation for us. 
 document.querySelectorAll('.top-nav button').forEach(btn => {
   btn.addEventListener('click', () => {
     const target = btn.dataset.nav;
@@ -39,9 +32,6 @@ document.querySelectorAll('.top-nav button').forEach(btn => {
     const section = document.getElementById(target);
     section.hidden = false;
     document.getElementById('main').focus();
-
-    // ✅ When switching to Records, refresh the list
-    
     if (target === 'records') {
       let data = getAll();
     if (currentSortKey) {
@@ -50,13 +40,10 @@ document.querySelectorAll('.top-nav button').forEach(btn => {
 
     renderRecords(data);
   }
-
-    /*if (target === 'records') {
-      renderRecords(getAll());
-    }*/
   });
 });
-// Track sort order for each field
+
+//This is used when sorting. It is used to sort things in ascending order.
 const sortState = {
   date: 'asc',
   amount: 'asc',
@@ -69,22 +56,17 @@ document.getElementById('sort-controls').addEventListener('click', (e) => {
 
   const field = e.target.dataset.sort;
   const allRecs = getAll();
-
-  // Toggle direction
   const direction = sortState[field] === 'asc' ? 'desc' : 'asc';
   sortState[field] = direction;
-  // Save sort so it persists
 currentSortKey = field;
 currentSortDirection = direction;
 
 const sorted = sortRecords(allRecs, field, direction);
 renderRecords(sorted);
-  /*const sorted = sortRecords(allRecs, field, direction);
-  renderRecords(sorted);*/
 });
 
 
-// === Live Regex Search ===
+// This is regex searching. A search bar is created in records section. When you search, matchs appear
 const searchInput = document.getElementById('search-input');
 const caseToggle = document.getElementById('case-insensitive');
 
@@ -96,7 +78,7 @@ function handleSearch() {
 
   const flags = caseToggle.checked ? 'i' : '';
   const re = compileRegex(pattern, flags);
-  currentSearchRegex = re; // ✅ store it globally
+  currentSearchRegex = re;
 
   if (!re) {
     currentSearchRegex = null;
@@ -115,20 +97,18 @@ function handleSearch() {
 
   renderRecords(filtered);
 }
- //form: quick submit test
- // ✅ Make sure normalizeDateInput and cleanDescription exist above this block
-
+ //This block is used for submiting the form. You can look add section, it allows you to submit data
 const form = document.getElementById('txn-form');
 form.addEventListener('submit', (e) => {
   e.preventDefault();
 
-  // === 1. Get raw values from inputs (only once each) ===
+  // These are ways to get values inpute by user in add(form)
   const rawDesc = document.getElementById('desc').value;
   const rawAmt = document.getElementById('amount').value;
   const rawCat = document.getElementById('category').value;
   const rawDate = document.getElementById('date').value; // single declaration
 
-  // === 2. Prepare error fields ===
+  // If the user inserts incorrect input, the error message is displayed. So these handles that
   const errDesc = document.getElementById('err-desc');
   const errAmount = document.getElementById('err-amount');
   const errCategory = document.getElementById('err-category');
@@ -136,7 +116,7 @@ form.addEventListener('submit', (e) => {
 
   let valid = true;
 
-  // === Description Validation ===
+  // This one is for validating description when you input
   if (!regexDescription.test(rawDesc)) {
     errDesc.textContent = "No leading/trailing spaces allowed.";
     valid = false;
@@ -148,7 +128,7 @@ form.addEventListener('submit', (e) => {
   }
   const cleanedDesc = cleanDescription(rawDesc);
 
-  // === Amount Validation ===
+  // This one is for validating amount when you input
   if (!validateField(rawAmt, regexAmount)) {
     errAmount.textContent = "Enter a valid amount (e.g. 10.50).";
     valid = false;
@@ -156,7 +136,7 @@ form.addEventListener('submit', (e) => {
     errAmount.textContent = "";
   }
 
-  // === Category Validation ===
+  // This one is for validating category when you input
   if (!validateField(rawCat.trim(), regexCategory)) {
     errCategory.textContent = "Only letters, spaces, or hyphens allowed.";
     valid = false;
@@ -164,7 +144,7 @@ form.addEventListener('submit', (e) => {
     errCategory.textContent = "";
   }
 
-  // === Date Validation (from native <input type="date">) ===
+  // This one is for validating date when you input
   const dateValue = String(rawDate).trim(); // use this variable for validation/storage
   if (!regexDate.test(dateValue)) {
     errDate.textContent = "Please select a valid date (YYYY-MM-DD).";
@@ -173,13 +153,13 @@ form.addEventListener('submit', (e) => {
     errDate.textContent = "";
   }
 
-  // === STOP if invalid ===
+  // If the data you inserted is invalid, this prevents you from submitting it
   if (!valid) {
     document.getElementById('form-status').textContent = "Fix errors before saving.";
     return;
   }
 
-  // === Build record with cleaned values ===
+  // This is for building up record
   const now = new Date().toISOString();
   const rec = {
     description: cleanedDesc,
@@ -253,7 +233,7 @@ function renderDashboard(data) {
 
   document.getElementById('stat-total-amount').textContent =
     `Total Amount: $${stats.totalAmount.toFixed(2)}`;
-    // Adding monthly cap calculator
+    // This is calculator for monthly cap, like remining or over usage
     const settings = loadSettings();
     const cap = settings.cap;
 
@@ -262,7 +242,7 @@ function renderDashboard(data) {
     const liveMessageElem = document.getElementById('cap-live');
 
     if (!liveMessageElem) {
-      // create live region if not exists
+      
       const p = document.createElement('p');
       p.id = 'cap-live';
       p.setAttribute('role', 'status');
@@ -296,7 +276,7 @@ function renderDashboard(data) {
     chartDiv.appendChild(bar);
   });
 }
-//sorter function
+//This function is used for sorting, it sorts records
 function sortRecords(records, field, direction = 'asc') {
   const sorted = [...records];
 
@@ -304,13 +284,13 @@ function sortRecords(records, field, direction = 'asc') {
     let valA = a[field];
     let valB = b[field];
 
-    // Convert numeric string to number if needed
+    
     if (field === 'amount') {
       valA = parseFloat(valA);
       valB = parseFloat(valB);
     }
 
-    // Compare strings case-insensitively
+    // This block is for comparing strings without case-sensitivity
     if (typeof valA === 'string' && typeof valB === 'string') {
       valA = valA.toLowerCase();
       valB = valB.toLowerCase();
@@ -353,98 +333,45 @@ function renderRecords(data) {
     container.appendChild(row);
   });
 }
-
-
-
-/*function renderRecords(data) {
-  const container = document.getElementById('records-list');
-  container.innerHTML = '';
-
-  if (!data.length) {
-    container.innerHTML = '<p>No records found.</p>';
-    return;
-  }
-
-  data.forEach(rec => {
-    const card = document.createElement('div');
-    card.className = 'record-card';
-
-    const info = document.createElement('div');
-    info.className = 'record-info';
-    
-    info.innerHTML = `
-          <strong>${highlightMatch(rec.description)}</strong><br>
-          Amount: ${highlightMatch(String(rec.amount))}<br>
-          Category: ${highlightMatch(rec.category)}<br>
-          Date: ${highlightMatch(rec.date)}`;
-
-    const actions = document.createElement('div');
-    actions.className = 'record-actions';
-    actions.innerHTML = `
-      <button data-id="${rec.id}" data-action="edit">Edit</button>
-      <button data-id="${rec.id}" data-action="delete">Delete</button>
-    `;
-
-    card.appendChild(info);
-    card.appendChild(actions);
-    container.appendChild(card);
-  });
-}*/
-
-
-
-// Delete button handler (event delegation)
+// This block handles deletion of record for us
 document.getElementById('records-list').addEventListener('click', (e) => {
   const btn = e.target;
   if (btn.dataset.action === 'delete') {
     const id = btn.dataset.id;
-
-    // Confirm before deleting
-    const ok = confirm('Delete this record?');
+    const ok = confirm('Do you want to delete?');
     if (!ok) return;
 
     const removed = deleteRecord(id);
     if (removed) {
-      // Refresh the UI using updated records
+  
       renderRecords(getAll());
       renderDashboard(getAll());
     }
   }
-  // Edit button handler
+  // This block handles edit button for us
     if (btn.dataset.action === 'edit') {
     const id = btn.dataset.id;
     const record = getAll().find(r => r.id === id);
     if (!record) return;
 
-    // Populate form fields
+    // Once you clicked edit button, this adds the data to form fields
     const form = document.getElementById('txn-form');
     form.description.value = record.description;
     form.amount.value = record.amount;
     form.category.value = record.category;
     form.date.value = record.date;
-
-    // Track which record we're editing
     editingId = id;
 
-    // Switch to Add/Edit section
+    // Since you eddit at add section, this block switchs to there
     document.querySelectorAll('.screen').forEach(s => s.hidden = true);
     document.getElementById('add').hidden = false;
-    /*const mainEl = document.getElementById('main');
-    if (mainEl) mainEl.focus();*/ 
     document.getElementById('main').focus();
-
-    // Update form status text
     document.getElementById('form-status').textContent = 'Editing record...';
    }
 
 });
-// ✅ ALL other code above (nav handlers, render functions, etc.)
-
-// ✅ Add this EXACTLY at the very bottom:
 
 document.addEventListener('DOMContentLoaded', () => {
-
-  // === Load existing settings on startup ===
   const settings = loadSettings();
   if (settings.baseCurrency) {
     document.getElementById('base-currency').value = settings.baseCurrency;
@@ -454,7 +381,7 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('rate2').value = settings.rate2;
   }
 
-  // === Handle currency save ===
+  // This block handles saving currency. Once you put currency, it saves for us
   const currencyForm = document.getElementById('currency-form');
   if (currencyForm) {
     currencyForm.addEventListener('submit', (e) => {
@@ -472,7 +399,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // === Export JSON ===
+  // At the bottom of setting section, there is export Json. So it is this function that handles it for us
   const exportBtn = document.getElementById('export-json');
   if (exportBtn) {
     exportBtn.addEventListener('click', () => {
@@ -489,7 +416,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // === Import JSON ===
+  // This one is for importing Json. Once imported, the data is rendered directly from it
   const importInput = document.getElementById('import-json');
   if (importInput) {
     importInput.addEventListener('change', (e) => {
@@ -518,12 +445,12 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
 
-  //for adding capital
+  //This block is for adding monthly capital
   if (settings.cap !== undefined) {
   document.getElementById('cap-amount').value = settings.cap;
 }
 
-// === Save cap when form is submitted ===
+// This block saves cap once submitted
 document.getElementById('cap-form').addEventListener('submit', (e) => {
   e.preventDefault();
 
@@ -545,9 +472,7 @@ document.getElementById('cap-form').addEventListener('submit', (e) => {
 });
 
 
-});  // ✅ THIS time it closes properly!
-
-// ✅ END OF main.js
+});
 
 
 
