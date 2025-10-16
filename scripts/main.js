@@ -324,8 +324,39 @@ function sortRecords(records, field, direction = 'asc') {
   return sorted;
 }
 
-
 function renderRecords(data) {
+  const container = document.getElementById('records-list');
+  container.innerHTML = '';
+
+  if (!data.length) {
+    container.innerHTML = `
+      <tr><td colspan="6" style="text-align:center;">No records found.</td></tr>
+    `;
+    return;
+  }
+
+  data.forEach((rec, index) => {
+    const row = document.createElement('tr');
+
+    row.innerHTML = `
+      <td>${index + 1}</td>
+      <td>${highlightMatch(rec.description)}</td>
+      <td>$${highlightMatch(String(rec.amount))}</td>
+      <td>${highlightMatch(rec.category)}</td>
+      <td>${highlightMatch(rec.date)}</td>
+      <td>
+        <button data-id="${rec.id}" data-action="edit">Edit</button>
+        <button data-id="${rec.id}" data-action="delete">Delete</button>
+      </td>
+    `;
+
+    container.appendChild(row);
+  });
+}
+
+
+
+/*function renderRecords(data) {
   const container = document.getElementById('records-list');
   container.innerHTML = '';
 
@@ -358,7 +389,10 @@ function renderRecords(data) {
     card.appendChild(actions);
     container.appendChild(card);
   });
-}
+}*/
+
+
+
 // Delete button handler (event delegation)
 document.getElementById('records-list').addEventListener('click', (e) => {
   const btn = e.target;

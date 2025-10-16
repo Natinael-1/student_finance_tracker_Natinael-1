@@ -278,10 +278,14 @@ width: 70%
 #stats-wrapper #stat-top-category{
   font-size: 90%;
 }
-#records #records-list {
+
+/*#records #records-list {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 1rem;
+  }*/
+  #records #records-list {
+    display: table-row-group;
   }
   .record-info {
   font-size: 1.2rem;
@@ -290,10 +294,13 @@ width: 70%
   .app-title{font-size:1.3rem}
 }
 @media(min-width: 1024px){
-  #records #records-list {
+  /*#records #records-list {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 1rem;
+  }*/
+  #records #records-list {
+    display: table-row-group;
   }
   .record-info {
   font-size: 1.5rem;
@@ -329,11 +336,27 @@ width: 70%
   cursor: pointer;
 }
 
+/* Fix records table layout */
 #records-list {
+  display: table-row-group; /* default for <tbody> */
+}
+
+#records-list tr {
+  display: table-row;
+}
+
+#records-list td, #records-list th {
+  white-space: nowrap; /* keeps content inline neatly */
+  vertical-align: middle;
+}
+
+
+
+/*#records-list {
   display: flex;
   flex-direction: column;
   gap: 10px;
-}
+}*/
 
 .record-card {
   border: 5px solid #ddd;
@@ -435,3 +458,49 @@ width: 70%
   margin-top: 8px;
   font-size: 0.9rem;
 }
+/*below is the css style for table*/
+
+/* Table Styling */
+.table-wrapper {
+  overflow-x: auto;
+  margin-top: 10px;
+}
+
+#records-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #fff;
+  border: 2px solid #ddd;
+}
+
+#records-table th, #records-table td {
+  border: 1px solid #ccc;
+  padding: 8px 10px;
+  text-align: left;
+}
+
+#records-table th {
+  background-color: #f2f2f2;
+  font-weight: bold;
+}
+
+#records-table tr:nth-child(even) {
+  background-color: #fafafa;
+}
+
+#records-table button {
+  background: none;
+  border: none;
+  color: blue;
+  cursor: pointer;
+  font-size: 0.95rem;
+  margin-right: 8px;
+}
+
+#records-table button:hover {
+  text-decoration: underline;
+}
+
+
+
+

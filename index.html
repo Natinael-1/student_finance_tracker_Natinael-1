@@ -48,37 +48,48 @@
     </section>
 
     <section id="records" class="screen" aria-labelledby="h-records" hidden>
-        <h2 id="h-records">Records</h2>
+      <h2 id="h-records">Records</h2>
 
-        <!-- Search Bar -->
-        <div id="records-controls">
-            <input
-            id="search-input"
-            type="text"
-            placeholder="Search (supports regex)"
-            aria-label="Search transactions"
-            />
-            <label style="font-size: 0.9rem;">
-            <input type="checkbox" id="case-insensitive" checked />
-            Case-insensitive
-            </label>
-        </div>
+      <!-- Search Bar -->
+      <div id="records-controls">
+        <input
+          id="search-input"
+          type="text"
+          placeholder="Search (supports regex)"
+          aria-label="Search transactions"
+        />
+        <label style="font-size: 0.9rem;">
+          <input type="checkbox" id="case-insensitive" checked />
+          Case-insensitive
+        </label>
+      </div>
 
-        <!-- Sort buttons -->
-        <div id="sort-controls">
-            <button class="sort" data-sort="date">Sort by Date</button>
-            <button class="sort" data-sort="amount">Sort by Amount</button>
-            <button class="sort" data-sort="category">Sort by Category</button>
-            <button class="sort" data-sort="description">Sort by Description</button>
-        </div>
+      <!-- Sort buttons -->
+      <div id="sort-controls">
+        <button class="sort" data-sort="id">Sort by ID</button>
+        <button class="sort" data-sort="date">Sort by Date</button>
+        <button class="sort" data-sort="amount">Sort by Amount</button>
+        <button class="sort" data-sort="category">Sort by Category</button>
+        <button class="sort" data-sort="description">Sort by Description</button>
+      </div>
 
-        <!-- Table or card list -->
-        <div id="records-list" role="table" aria-live="polite"></div>
-
-        <!-- Floating Add Button (optional for mobile view) -->
-        <!--button id="add-record-btn" aria-label="Add new record">+</button-->
+      <!-- Records Table -->
+      <div class="table-wrapper">
+        <table id="records-table" role="table" aria-live="polite">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Description</th>
+              <th>Amount ($)</th>
+              <th>Category</th>
+              <th>Date</th>
+              <th>Update or remove</th>
+            </tr>
+          </thead>
+          <tbody id="records-list"></tbody>
+        </table>
+      </div>
     </section>
-
     <section id="add" class="screen" aria-labelledby="h-add" hidden>
       <h2 id="h-add">Add Transaction</h2>
       <form id="txn-form" novalidate>
@@ -158,12 +169,13 @@
         <p id="import-status" role="status" aria-live="polite"></p>
       </div>
     </section>
-
-
     <section id="about" class="screen" aria-labelledby="h-about" hidden>
       <h2 id="h-about">About</h2>
-      <p>This app helps you track daily expenses. Developer: Natinael Boda</p>
-      <p>GitHub: <a href="#" id="github-link">github.com/yourname</a></p>
+      <p>This app helps you track daily expenses. It is very simple app that is easy to use.<br>
+        You just navigate to different buttons and use it. <br>For example, in add section, you just datas
+        <br>In records section, you see the records and so on<br> Developer: Natinael Boda</p>
+      <p>GitHub: <a href="#" id="github-link">github.comNatinael-1</a></p>
+      <p>Email address: n.borana@alustudent.com</p>
     </section>
   </main>
 

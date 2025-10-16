@@ -1,0 +1,94 @@
+
+[
+  {
+    "id": "rec_1",
+    "description": "Cocacola",
+    "amount": "50",
+    "category": "Drink",
+    "date": "2025-10-08"
+  },
+  {
+    "id": "rec_3",
+    "description": "Trouser",
+    "amount": "60",
+    "category": "Cloth",
+    "date": "2025-10-08"
+  },
+  {
+    "id": "rec_5",
+    "description": "Movie",
+    "amount": "7",
+    "category": "Entertainment",
+    "date": "2025-10-15"
+  },
+  {
+    "id": "rec_7",
+    "description": "Help family",
+    "amount": "100",
+    "category": "Family",
+    "date": "2025-10-08"
+  },
+  {
+    "id": "rec_9",
+    "description": "Injera",
+    "amount": "54",
+    "category": "Food",
+    "date": "2025-10-08"
+  },
+  {
+    "id": "rec_11",
+    "description": "Lunch",
+    "amount": "34",
+    "category": "Food",
+    "date": "2025-10-08"
+  },
+  {
+    "id": "rec_13",
+    "description": "House Rent",
+    "amount": "700",
+    "category": "Bill",
+    "date": "2025-10-14"
+  },
+  {
+    "id": "rec_15",
+    "description": "Transport ticket",
+    "amount": "15",
+    "category": "Travel",
+    "date": "2025-10-09"
+  },
+  {
+    "id": "rec_17",
+    "description": "Notebook",
+    "amount": "12",
+    "category": "Education",
+    "date": "2025-10-07"
+  },
+  {
+    "id": "rec_19",
+    "description": "Gym subscription",
+    "amount": "40",
+    "category": "Health",
+    "date": "2025-10-06"
+  },
+  {
+    "id": "rec_21",
+    "description": "Electric bill",
+    "amount": "90",
+    "category": "Utility",
+    "date": "2025-10-10"
+  },
+  {
+    "id": "rec_23",
+    "description": "Book purchase",
+    "amount": "24",
+    "category": "Education",
+    "date": "2025-10-12"
+  },
+  {
+    "id": "rec_25",
+    "description": "Food shopping",
+    "amount": "108",
+    "category": "Food",
+    "date": "2025-10-11"
+  }
+]
