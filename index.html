@@ -43,17 +43,6 @@
       <div id="stat-chart"></div>
     </section>
 
-    <!--section id="dashboard" class="screen" aria-labelledby="h-dashboard">
-      <h2 id="h-dashboard">Dashboard</h2>
-      <div id="stats" aria-live="polite">
-            <div class="card" id="stat-total-records">Total Records: 0</div>
-            <div class="card" id="stat-total-amount">Total Amount: $0</div>
-            <div class="card" id="stat-top-category">Top Category: N/A</div>
-            <div class="card" id="stat-chart-title">Last 7 Days</div>
-            <div id="stat-chart"></div>
-      </div>
-    </section-->
-
     <section id="records" class="screen" aria-labelledby="h-records" hidden>
         <h2 id="h-records">Records</h2>
 
@@ -86,13 +75,6 @@
         <!--button id="add-record-btn" aria-label="Add new record">+</button-->
     </section>
 
-
-    <!--section id="records" class="screen" aria-labelledby="h-records" hidden>
-      <h2 id="h-records">Records</h2>
-      <div id="records-controls"></div>
-      <div id="records-list" role="table" aria-live="polite"></div>
-    </section-->
-
     <section id="add" class="screen" aria-labelledby="h-add" hidden>
       <h2 id="h-add">Add Transaction</h2>
       <form id="txn-form" novalidate>
@@ -120,14 +102,6 @@
       </form>
     </section>
 
-    
-
-
-    <!--section id="settings" class="screen" aria-labelledby="h-settings" hidden>
-      <h2 id="h-settings">Settings</h2>
-      <div id="settings-area"></div>
-    </section-->
-
     <section id="settings" class="screen" aria-labelledby="h-settings" hidden>
       <h2 id="h-settings">Settings</h2>
 
@@ -139,22 +113,22 @@
         </label>
 
         <label class="label">
-          Other Currency 1:
+          Currency 1:
           <input type="text" id="currency1" value="EUR" required />
         </label>
 
         <label class="label">
-          Rate (Base → Currency 1):
+          Base → Currency 1:
           <input type="number" step="0.01" id="rate1" value="1.1" required />
         </label>
 
         <label class="label">
-          Other Currency 2:
+          Currency 2:
           <input type="text" id="currency2" value="GBP" required />
         </label>
 
         <label class="label">
-          Rate (Base → Currency 2):
+          Base → Currency 2:
           <input type="number" step="0.01" id="rate2" value="0.85" required />
         </label>
 
