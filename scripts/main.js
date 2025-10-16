@@ -253,7 +253,31 @@ function renderDashboard(data) {
 
   document.getElementById('stat-total-amount').textContent =
     `Total Amount: $${stats.totalAmount.toFixed(2)}`;
+    // Adding monthly cap calculator
+    const settings = loadSettings();
+    const cap = settings.cap;
 
+  if (cap !== undefined && !isNaN(cap)) {
+    const remaining = cap - stats.totalAmount;
+    const liveMessageElem = document.getElementById('cap-live');
+
+    if (!liveMessageElem) {
+      // create live region if not exists
+      const p = document.createElement('p');
+      p.id = 'cap-live';
+      p.setAttribute('role', 'status');
+      p.setAttribute('aria-live', 'polite');
+      document.getElementById('dashboard').appendChild(p);
+    }
+
+    const messageElem = document.getElementById('cap-live');
+    if (remaining >= 0) {
+      messageElem.textContent = `You are $${remaining.toFixed(2)} under your cap.`;
+    } else {
+      messageElem.setAttribute('aria-live', 'assertive');
+      messageElem.textContent = `You are $${Math.abs(remaining).toFixed(2)} OVER your cap!`;
+    }
+  }
   document.getElementById('stat-top-category').textContent =
     `Top Category: ${stats.topCategory}`;
 
@@ -383,6 +407,7 @@ document.getElementById('records-list').addEventListener('click', (e) => {
 // ✅ ALL other code above (nav handlers, render functions, etc.)
 
 // ✅ Add this EXACTLY at the very bottom:
+
 document.addEventListener('DOMContentLoaded', () => {
 
   // === Load existing settings on startup ===
@@ -409,6 +434,7 @@ document.addEventListener('DOMContentLoaded', () => {
       };
       saveSettings(newSettings);
       alert('Currency settings saved!');
+
     });
   }
 
@@ -456,6 +482,34 @@ document.addEventListener('DOMContentLoaded', () => {
       reader.readAsText(file);
     });
   }
+
+
+  //for adding capital
+  if (settings.cap !== undefined) {
+  document.getElementById('cap-amount').value = settings.cap;
+}
+
+// === Save cap when form is submitted ===
+document.getElementById('cap-form').addEventListener('submit', (e) => {
+  e.preventDefault();
+
+  const capValue = parseFloat(document.getElementById('cap-amount').value);
+
+  if (isNaN(capValue) || capValue < 0) {
+    document.getElementById('cap-status').textContent =
+      'Please enter a valid number.';
+    return;
+  }
+
+  const updatedSettings = {
+    ...loadSettings(),
+    cap: capValue
+  };
+
+  saveSettings(updatedSettings);
+  document.getElementById('cap-status').textContent = 'Cap saved!';
+});
+
 
 });  // ✅ THIS time it closes properly!
 
