@@ -102,5 +102,7 @@ https://www.figma.com/design/1cmjIR8Tqn2GyxU9wIQ9st/Finance-tracker?node-id=63-9
 https://www.figma.com/design/1cmjIR8Tqn2GyxU9wIQ9st/Finance-tracker?node-id=43-278&t=GC78fwDVLdUU3The-0  
 
 Demo video link in Youtube  
-https://youtu.be/a_lQ8_e8MIA?si=fIaw9hx4_jgfoNYl
+https://youtu.be/a_lQ8_e8MIA?si=fIaw9hx4_jgfoNYl  
+Link to GitHub page  
+https://natinael-1.github.io/student_finance_tracker_Natinael-1/
 
