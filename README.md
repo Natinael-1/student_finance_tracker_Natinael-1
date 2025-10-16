@@ -96,7 +96,7 @@ README.md	Documentation & project info
 ======HERE ARE LINKS TO Design=====
 1. Phone view
 https://www.figma.com/design/1cmjIR8Tqn2GyxU9wIQ9st/Finance-tracker?node-id=31-2&t=GC78fwDVLdUU3The-0  
-2.Desktop view  
+2.Desktop view   
 https://www.figma.com/design/1cmjIR8Tqn2GyxU9wIQ9st/Finance-tracker?node-id=63-953&t=GC78fwDVLdUU3The-0
 3 Tablet view  
 https://www.figma.com/design/1cmjIR8Tqn2GyxU9wIQ9st/Finance-tracker?node-id=43-278&t=GC78fwDVLdUU3The-0
