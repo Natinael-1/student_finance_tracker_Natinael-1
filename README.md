@@ -28,7 +28,7 @@ Regex Catalog
 
 The app validates and searches data using custom regular expressions.
 
-Field	Regex Pattern	Explanation	✅ Example Valid	❌ Example Invalid
+Field	Regex Pattern	Explanation	. Example Valid	. Example Invalid
 Description		No leading or trailing spaces	Lunch at cafe	" Lunch "
 Amount		Integers or decimals (max 2 decimals)	12, 15.50
 Date	
@@ -78,7 +78,7 @@ Field validation errors
 
 Record rendering
 
-Open your console (Ctrl + Shift + I) → see “✅ Passed” or “❌ Failed” logs.
+Open your console (Ctrl + Shift + I) → see “. Passed” or “. Failed” logs.
 
 Project Structure
 
